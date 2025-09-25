@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public PlayerData player1;
     public PlayerData player2;
 
+    public int selectionCount = 7;
+
     void Awake()
     {
         if (Instance == null)
@@ -37,5 +39,8 @@ public class GameManager : MonoBehaviour
             player1.deck[i] = new CardData($"P1 Card {i + 1}", Random.Range(1, 4), 0);
             player2.deck[i] = new CardData($"P2 Card {i + 1}", Random.Range(1, 4), 0);
         }
+
+        player1.selectedDeck = new CardData[selectionCount];
+        player2.selectedDeck = new CardData[selectionCount];
     }
 }

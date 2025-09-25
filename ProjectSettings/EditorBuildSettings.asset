@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SetupScene.unity
     guid: b2858cdedf810044692952f4bf0e6dad
   - enabled: 1
+    path: Assets/Scenes/CardSelectionScene.unity
+    guid: 725a031aa06d18a4e9cbd18571a256a9
+  - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: 6a7a4a619161b1a41b5eec56625260df
   m_configObjects: {}
