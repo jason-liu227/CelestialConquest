@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class SetupUI : MonoBehaviour
 {
-    public void StartBattle()
+    public void CardSelection()
     {
-        SceneManager.LoadScene("BattleScene");
+        SceneManager.LoadScene("CardSelectionScene");
     }
 }

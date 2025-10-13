@@ -285,12 +285,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1:
     playerName: Player
-    hp: 20
+    health: 0
     deck: []
+    selectedDeck: []
   player2:
     playerName: Npc
-    hp: 20
+    health: 0
     deck: []
+    selectedDeck: []
+  selectionCount: 7
 --- !u!1 &561362999
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +807,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 351311138}
         m_TargetAssemblyTypeName: SetupUI, Assembly-CSharp
-        m_MethodName: StartBattle
+        m_MethodName: CardSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

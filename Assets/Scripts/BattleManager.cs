@@ -7,68 +7,57 @@ using System.Collections;
 public class BattleManager : MonoBehaviour
 {
     public TextMeshProUGUI logText;
-   
-    public Button returnButton;
 
-    PlayerData p1;
-    PlayerData p2;
+    private PlayerData p1;
+    private PlayerData p2;
 
     void Start()
     {
         p1 = GameManager.Instance.player1;
         p2 = GameManager.Instance.player2;
 
-        returnButton.gameObject.SetActive(false); // hide at first
-
+        logText.text = "Battle Start!";
         StartCoroutine(RunBattle());
     }
 
     IEnumerator RunBattle()
     {
         int round = 0;
-        bool p1Turn = p1.hp <= p2.hp;
 
-        while (p1.hp > 0 && p2.hp > 0)
+        while (p1.health > 0 && p2.health > 0)
         {
             yield return new WaitForSeconds(1f);
 
-            int index = round % 10;
+            bool p1Turn = (round % 2 == 0);
             CardData card;
 
             if (p1Turn)
             {
-                card = p1.deck[index];
+                card = p1.selectedDeck[round % p1.selectedDeck.Length];
                 ApplyCard(card, p1, p2);
                 logText.text += $"\nP1 plays {card.cardName} (Deals {card.damage})";
-              
             }
             else
             {
-                card = p2.deck[index];
+                card = p2.selectedDeck[round % p2.selectedDeck.Length];
                 ApplyCard(card, p2, p1);
                 logText.text += $"\nP2 plays {card.cardName} (Deals {card.damage})";
             }
 
-            logText.text += $"\nHP: P1={p1.hp}, P2={p2.hp}";
-
-            p1Turn = !p1Turn;
             round++;
         }
 
-        logText.text += p1.hp <= 0 ? "\nPlayer 2 Wins!" : "\nPlayer 1 Wins!";
-        returnButton.gameObject.SetActive(true); // show button
+        // end result
+        if (p1.health <= 0 && p2.health <= 0)
+            logText.text += "\nIt's a Draw!";
+        else if (p1.health <= 0)
+            logText.text += "\nPlayer 2 Wins!";
+        else
+            logText.text += "\nPlayer 1 Wins!";
     }
 
-    void ApplyCard(CardData card, PlayerData caster, PlayerData target)
+    void ApplyCard(CardData card, PlayerData attacker, PlayerData defender)
     {
-        target.hp -= card.damage;
-        caster.hp += card.heal;
-        if (caster.hp > 20) caster.hp = 20;
-    }
-
-    public void ReturnToSetup()
-    {
-        SceneManager.LoadScene("SetupScene");
+        defender.health -= card.damage;
     }
 }
-
