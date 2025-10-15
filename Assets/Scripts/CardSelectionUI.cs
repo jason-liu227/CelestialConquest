@@ -13,6 +13,13 @@ public class CardSelectionUI : MonoBehaviour
 
     void Start()
     {
+        // Ensure GameManager is initialized
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager instance is null!");
+            return;
+        }
+
         maxSelection = GameManager.Instance.selectionCount;
 
         // Safety: ensure arrays match number of buttons
@@ -49,12 +56,17 @@ public class CardSelectionUI : MonoBehaviour
 
     void RefreshUI()
     {
+        if (GameManager.Instance?.player1?.deck == null) return;
+
         int count = Mathf.Min(cardButtons.Length, GameManager.Instance.player1.deck.Length);
 
         for (int i = 0; i < count; i++)
         {
             var text = cardButtons[i].GetComponentInChildren<Text>();
-            text.text = GameManager.Instance.player1.deck[i].cardName;
+            if (text != null && i < GameManager.Instance.player1.deck.Length)
+            {
+                text.text = GameManager.Instance.player1.deck[i].cardName;
+            }
 
             var colors = cardButtons[i].colors;
             colors.normalColor = selected[i] ? Color.green : Color.white;
@@ -64,10 +76,25 @@ public class CardSelectionUI : MonoBehaviour
 
     public void StartBattle()
     {
+        // Safety checks
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager instance is null!");
+            return;
+        }
+
+        if (GameManager.Instance.player1 == null || GameManager.Instance.player1.deck == null)
+        {
+            Debug.LogError("Player1 or deck is not initialized!");
+            return;
+        }
+
         // Count how many cards are selected
         int picked = 0;
         for (int i = 0; i < selected.Length; i++)
+        {
             if (selected[i]) picked++;
+        }
 
         if (picked != maxSelection)
         {
@@ -75,28 +102,44 @@ public class CardSelectionUI : MonoBehaviour
             return;
         }
 
-        // Save chosen cards safely
-        int j = 0;
-        int deckLength = Mathf.Min(GameManager.Instance.player1.selectedDeck.Length, maxSelection);
+        // Create new selected deck array
+        List<CardData> selectedCards = new List<CardData>();
 
+        // Copy selected cards safely
         for (int i = 0; i < selected.Length; i++)
         {
-            if (selected[i])
+            if (selected[i] && i < GameManager.Instance.player1.deck.Length)
             {
-                if (j >= deckLength) break; // prevent overflow
-                if (i >= GameManager.Instance.player1.deck.Length) continue; // safety if deck < buttons
-                GameManager.Instance.player1.selectedDeck[j] = GameManager.Instance.player1.deck[i];
-                j++;
+                if (GameManager.Instance.player1.deck[i] != null)
+                {
+                    selectedCards.Add(GameManager.Instance.player1.deck[i]);
+                }
             }
         }
 
-        // Give AI 7 random cards safely
-        for (int i = 0; i < deckLength; i++)
-        {
-            GameManager.Instance.player2.selectedDeck[i] =
-                GameManager.Instance.player2.deck[Random.Range(0, GameManager.Instance.player2.deck.Length)];
-        }
+        // Assign to player's selected deck
+        GameManager.Instance.player1.selectedDeck = selectedCards.ToArray();
 
+        // Give AI random cards safely
+        List<CardData> aiSelectedCards = new List<CardData>();
+        for (int i = 0; i < maxSelection; i++)
+        {
+            if (GameManager.Instance.player2.deck != null && GameManager.Instance.player2.deck.Length > 0)
+            {
+                int randomIndex = Random.Range(0, GameManager.Instance.player2.deck.Length);
+                if (GameManager.Instance.player2.deck[randomIndex] != null)
+                {
+                    aiSelectedCards.Add(GameManager.Instance.player2.deck[randomIndex]);
+                }
+            }
+        }
+        GameManager.Instance.player2.selectedDeck = aiSelectedCards.ToArray();
+
+        // Debug: Verify the transfer
+        Debug.Log($"P1 selected {GameManager.Instance.player1.selectedDeck.Length} cards for battle");
+        Debug.Log($"P2 selected {GameManager.Instance.player2.selectedDeck.Length} cards for battle");
+
+        // Load battle scene
         SceneManager.LoadScene("BattleScene");
     }
 }

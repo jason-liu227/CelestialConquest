@@ -13,8 +13,35 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError(" GameManager.Instance is NULL when battle starts!");
+            return;
+        }
+
         p1 = GameManager.Instance.player1;
         p2 = GameManager.Instance.player2;
+
+        if (p1.selectedDeck == null)
+        {
+            Debug.LogError(" p1.selectedDeck is NULL!");
+            return;
+        }
+
+        if (p1.selectedDeck.Length == 0)
+        {
+            Debug.LogError(" p1.selectedDeck has LENGTH 0!");
+            return;
+        }
+
+        Debug.Log($" Battle starting: P1 HP={p1.health}, deck size={p1.selectedDeck.Length}");
+        logText.text = "Battle Start!";
+       
+        p1 = GameManager.Instance.player1;
+        p2 = GameManager.Instance.player2;
+
+        p1.health = 20;
+        p2.health = 20;
 
         logText.text = "Battle Start!";
         StartCoroutine(RunBattle());

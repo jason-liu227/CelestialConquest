@@ -284,12 +284,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player1:
-    playerName: Player
+    playerName: Player 1
     health: 0
     deck: []
     selectedDeck: []
   player2:
-    playerName: Npc
+    playerName: Player 2
     health: 0
     deck: []
     selectedDeck: []

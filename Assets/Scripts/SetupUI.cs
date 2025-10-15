@@ -8,6 +8,7 @@ public class SetupUI : MonoBehaviour
 {
     public void CardSelection()
     {
+        GameManager.Instance.ResetGame();
         SceneManager.LoadScene("CardSelectionScene");
     }
 }
