@@ -62,13 +62,13 @@ public class BattleManager : MonoBehaviour
             {
                 card = p1.selectedDeck[round % p1.selectedDeck.Length];
                 ApplyCard(card, p1, p2);
-                logText.text += $"\nP1 plays {card.cardName} (Deals {card.damage})";
+                logText.text += $"\nP1 plays {card.cardName} (Deals {card.damage}) p2 Remaining Health {p2.health}";
             }
             else
             {
                 card = p2.selectedDeck[round % p2.selectedDeck.Length];
                 ApplyCard(card, p2, p1);
-                logText.text += $"\nP2 plays {card.cardName} (Deals {card.damage})";
+                logText.text += $"\nP2 plays {card.cardName} (Deals {card.damage}) p1 Remaining Health {p1.health}";
             }
 
             round++;
