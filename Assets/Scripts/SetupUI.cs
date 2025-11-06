@@ -11,4 +11,9 @@ public class SetupUI : MonoBehaviour
         GameManager.Instance.ResetGame();
         SceneManager.LoadScene("CardSelectionScene");
     }
+
+    public void ReturnToSetup()
+    {
+        SceneManager.LoadScene("SetupScene");
+    }
 }
