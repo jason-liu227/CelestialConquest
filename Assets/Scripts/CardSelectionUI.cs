@@ -11,11 +11,12 @@ public class CardSelectionUI : MonoBehaviour
     private bool[] selected;
     private int selectionCount = 0;
     private int maxSelection;
+
     public TextMeshProUGUI totalHealthText;
+    public TextMeshProUGUI roundText;
 
     void Start()
     {
-        UpdateTotalHealthUI();
         // Ensure GameManager is initialized
         if (GameManager.Instance == null)
         {
@@ -34,7 +35,8 @@ public class CardSelectionUI : MonoBehaviour
             int index = i;
             cardButtons[i].onClick.AddListener(() => ToggleCard(index));
         }
-
+        UpdateTotalHealthUI();
+        UpdateRoundUI();
         RefreshUI();
     }
 
@@ -153,5 +155,10 @@ public class CardSelectionUI : MonoBehaviour
 
         totalHealthText.text =
             $"Player 1 HP: {p1.totalHealth}\nPlayer 2 HP: {p2.totalHealth}";
+    }
+
+    void UpdateRoundUI()
+    {
+        roundText.text = $"Round {GameManager.Instance.currentRound}";
     }
 }

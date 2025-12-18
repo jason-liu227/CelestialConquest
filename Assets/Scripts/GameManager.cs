@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerData player1;
     public PlayerData player2;
+    public int currentRound;
 
     public int selectionCount = 7; // how many cards to pick
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         selectionCount = 7;
+        currentRound = 1;
 
         player1 = new PlayerData("Player 1");
         player2 = new PlayerData("Player 2");

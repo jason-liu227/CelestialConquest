@@ -108,6 +108,7 @@ public class BattleManager : MonoBehaviour
             }
             yield break;
         }
+        GameManager.Instance.currentRound++;
 
         SceneManager.LoadScene("CardSelectionScene");
     }
