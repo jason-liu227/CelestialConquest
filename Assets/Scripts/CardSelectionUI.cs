@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CardSelectionUI : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class CardSelectionUI : MonoBehaviour
     private bool[] selected;
     private int selectionCount = 0;
     private int maxSelection;
+    public TextMeshProUGUI totalHealthText;
 
     void Start()
     {
+        UpdateTotalHealthUI();
         // Ensure GameManager is initialized
         if (GameManager.Instance == null)
         {
@@ -141,5 +144,14 @@ public class CardSelectionUI : MonoBehaviour
 
         // Load battle scene
         SceneManager.LoadScene("BattleScene");
+    }
+
+    void UpdateTotalHealthUI()
+    {
+        var p1 = GameManager.Instance.player1;
+        var p2 = GameManager.Instance.player2;
+
+        totalHealthText.text =
+            $"Player 1 HP: {p1.totalHealth}\nPlayer 2 HP: {p2.totalHealth}";
     }
 }
