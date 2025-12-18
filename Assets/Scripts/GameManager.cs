@@ -28,15 +28,10 @@ public class GameManager : MonoBehaviour
         player1 = new PlayerData("Player 1");
         player2 = new PlayerData("Player 2");
 
-        player1.health = 20;
-        player2.health = 20;
+        selectionCount = 7;
 
-        player1.deck = new CardData[10];
-        player2.deck = new CardData[10];
-
-        // Initialize selected decks as empty arrays
-        player1.selectedDeck = new CardData[0];
-        player2.selectedDeck = new CardData[0];
+        player1.selectedDeck = new CardData[selectionCount];
+        player2.selectedDeck = new CardData[selectionCount];
 
         for (int i = 0; i < 10; i++)
         {

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -34,14 +34,14 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        Debug.Log($" Battle starting: P1 HP={p1.health}, deck size={p1.selectedDeck.Length}");
+        Debug.Log($"Battle Start!\nP1 Total HP: {p1.totalHealth}\nP2 Total HP: {p2.totalHealth}");
         logText.text = "Battle Start!";
        
         p1 = GameManager.Instance.player1;
         p2 = GameManager.Instance.player2;
 
-        p1.health = 20;
-        p2.health = 20;
+        p1.roundHealth = 20;
+        p2.roundHealth = 20;
 
         logText.text = "Battle Start!";
         StartCoroutine(RunBattle());
@@ -51,7 +51,7 @@ public class BattleManager : MonoBehaviour
     {
         int round = 0;
 
-        while (p1.health > 0 && p2.health > 0)
+        while (p1.roundHealth > 0 && p2.roundHealth > 0)
         {
             yield return new WaitForSeconds(1f);
 
@@ -62,22 +62,22 @@ public class BattleManager : MonoBehaviour
             {
                 card = p1.selectedDeck[round % p1.selectedDeck.Length];
                 ApplyCard(card, p1, p2);
-                logText.text += $"\nP1 plays {card.cardName} (Deals {card.damage}) p2 Remaining Health {p2.health}";
+                logText.text += $"\nP1 plays {card.cardName} (Deals {card.damage}) p2 Remaining Health {p2.roundHealth}";
             }
             else
             {
                 card = p2.selectedDeck[round % p2.selectedDeck.Length];
                 ApplyCard(card, p2, p1);
-                logText.text += $"\nP2 plays {card.cardName} (Deals {card.damage}) p1 Remaining Health {p1.health}";
+                logText.text += $"\nP2 plays {card.cardName} (Deals {card.damage}) p1 Remaining Health {p1.roundHealth}";
             }
 
             round++;
         }
 
         // end result
-        if (p1.health <= 0 && p2.health <= 0)
+        if (p1.roundHealth <= 0 && p2.roundHealth <= 0)
             logText.text += "\nIt's a Draw!";
-        else if (p1.health <= 0)
+        else if (p1.roundHealth <= 0)
             logText.text += "\nPlayer 2 Wins!";
         else
             logText.text += "\nPlayer 1 Wins!";
@@ -85,6 +85,6 @@ public class BattleManager : MonoBehaviour
 
     void ApplyCard(CardData card, PlayerData attacker, PlayerData defender)
     {
-        defender.health -= card.damage;
+        defender.roundHealth -= card.damage;
     }
 }
