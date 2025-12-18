@@ -8,6 +8,12 @@ public class BattleManager : MonoBehaviour
 {
     public TextMeshProUGUI logText;
 
+    public Button speedButton;
+    public TextMeshProUGUI speedButtonText;
+
+    private float[] speeds = { 1f, 2f };
+    private int speedIndex = 0;
+
     private PlayerData p1;
     private PlayerData p2;
 
@@ -44,6 +50,9 @@ public class BattleManager : MonoBehaviour
         p2.roundHealth = 20;
 
         logText.text = "Battle Start!";
+        Time.timeScale = 1f;
+        speedButton.onClick.AddListener(ToggleSpeed);
+        UpdateSpeedUI();
         StartCoroutine(RunBattle());
     }
 
@@ -106,9 +115,12 @@ public class BattleManager : MonoBehaviour
             {
                 logText.text += "\nPLAYER 1 WINS THE MATCH!";
             }
+            Time.timeScale = 1f;
+
             yield break;
         }
         GameManager.Instance.currentRound++;
+        Time.timeScale = 1f;
 
         SceneManager.LoadScene("CardSelectionScene");
     }
@@ -117,5 +129,17 @@ public class BattleManager : MonoBehaviour
     void ApplyCard(CardData card, PlayerData attacker, PlayerData defender)
     {
         defender.roundHealth -= card.damage;
+    }
+
+    void ToggleSpeed()
+    {
+        speedIndex = (speedIndex + 1) % speeds.Length;
+        Time.timeScale = speeds[speedIndex];
+        UpdateSpeedUI();
+    }
+
+    void UpdateSpeedUI()
+    {
+        speedButtonText.text = $"Speed: {Time.timeScale}x";
     }
 }
