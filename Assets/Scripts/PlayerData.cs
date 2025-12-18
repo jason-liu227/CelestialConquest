@@ -16,7 +16,7 @@ public class PlayerData
     public PlayerData(string name)
     {
         playerName = name;
-        totalHealth = 20; // starting Total HP
+        totalHealth = 50; // starting Total HP
         roundHealth = 20; // starting Round HP
         deck = new CardData[10];
     }
