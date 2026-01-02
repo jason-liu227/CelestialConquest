@@ -286,15 +286,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1:
     playerName: Player 1
-    health: 0
+    roundHealth: 0
+    totalHealth: 0
     deck: []
     selectedDeck: []
   player2:
     playerName: Player 2
-    health: 0
+    roundHealth: 0
+    totalHealth: 0
     deck: []
     selectedDeck: []
+  currentRound: 0
   selectionCount: 7
+  allCards:
+  - {fileID: 11400000, guid: 273a59771e65b344589ad1a4c710a63d, type: 2}
+  - {fileID: 11400000, guid: 34686517ffcf5eb4ba9f4e26feeca356, type: 2}
+  - {fileID: 11400000, guid: 4e585a00794224a4daea975c2ecfc2c6, type: 2}
 --- !u!1 &561362999
 GameObject:
   m_ObjectHideFlags: 0
