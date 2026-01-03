@@ -67,11 +67,13 @@ public class CardSelectionUI : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            var text = cardButtons[i].GetComponentInChildren<Text>();
-            if (text != null && i < GameManager.Instance.player1.deck.Length)
-            {
-                text.text = GameManager.Instance.player1.deck[i].cardName;
-            }
+            CardData card = GameManager.Instance.player1.deck[i];
+            if (card == null) continue;
+
+            var text = cardButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+            if (text == null) continue;
+
+            text.text = $"{card.cardName}\nDMG: {card.damage}";
 
             var colors = cardButtons[i].colors;
             colors.normalColor = selected[i] ? Color.green : Color.white;
@@ -154,7 +156,7 @@ public class CardSelectionUI : MonoBehaviour
         var p2 = GameManager.Instance.player2;
 
         totalHealthText.text =
-            $"Player 1 HP: {p1.totalHealth}\nPlayer 2 HP: {p2.totalHealth}";
+            $"NPC HP: {p1.totalHealth}\nPlayer 2 HP: {p2.totalHealth}";
     }
 
     void UpdateRoundUI()

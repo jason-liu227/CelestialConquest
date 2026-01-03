@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         selectionCount = 7;
         currentRound = 1;
 
-        player1 = new PlayerData("Player 1");
+        player1 = new PlayerData("NPC");
         player2 = new PlayerData("Player 2");
 
         player1.selectedDeck = new CardData[selectionCount];

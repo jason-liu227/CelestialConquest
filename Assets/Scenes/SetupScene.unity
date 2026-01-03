@@ -285,17 +285,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player1:
-    playerName: Player 1
+    playerName: Npc
     roundHealth: 0
     totalHealth: 0
-    deck: []
-    selectedDeck: []
+    deck:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    selectedDeck:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   player2:
     playerName: Player 2
     roundHealth: 0
     totalHealth: 0
-    deck: []
-    selectedDeck: []
+    deck:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    selectedDeck:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   currentRound: 0
   selectionCount: 7
   allCards:
